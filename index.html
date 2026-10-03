@@ -45,6 +45,7 @@ button:active{transform:scale(.96)}
   <div class="heart">💌</div>
   <h1>HEYYY SAYANG!</h1>
   <p><b>Tanggal 4 hari Minggu ini kamu free ga?</b></p>
+  <div id="countdown" style="font-size:22px;font-weight:800;margin:0 0 24px;letter-spacing:1px;">00 : 00 : 00 : 00</div>
   <div class="buttons">
     <button class="yes" onclick="yes()">FREE DONG</button>
     <button class="no" id="noBtn" onclick="nope()">AKU UDAH ADA JANJI LAIN</button>
@@ -56,7 +57,8 @@ button:active{transform:scale(.96)}
   <div class="emoji">🥰🎉</div>
   <h1>YEEEAY!</h1>
   <p>Berarti tanggal 4 kamu punya aku yaa ❤️<br><br>Jangan lupa kosongin waktunya hehe 😚</p>
-  <div class="small">See you, sayang! ❤️</div>
+  <button class="yes" onclick="sendWhatsApp()">💬 KIRIM JAWABAN KE AKU</button>
+  <div class="small">Tinggal tekan tombol di atas untuk mengirim jawaban lewat WhatsApp.</div>
 </div>
 
 <script>
@@ -80,7 +82,29 @@ function nope(){
   b.style.position="fixed";
   b.style.left=(10+Math.random()*65)+"%";
   b.style.top=(15+Math.random()*65)+"%";
-  b.textContent=["😳 Eits, jangan itu!","🥺 Yakin?","😭 Kok pilih ini...","🙈 Coba lagi!"][Math.floor(Math.random()*4)];
+  b.textContent=["Eits, jangan itu!","Yakin?","Kok pilih ini...","Coba lagi!"][Math.floor(Math.random()*4)];
+}
+
+const target = new Date("2026-10-04T00:00:00+07:00").getTime();
+function updateCountdown(){
+  const now = Date.now();
+  let diff = target-now;
+  if(diff < 0) diff=0;
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor((diff%86400000)/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  const sec=Math.floor((diff%60000)/1000);
+  document.getElementById("countdown").textContent =
+    String(d).padStart(2,"0")+" : "+String(h).padStart(2,"0")+" : "+
+    String(m).padStart(2,"0")+" : "+String(sec).padStart(2,"0");
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+function sendWhatsApp(){
+  const phone="628115905160";
+  const message="Aku free tanggal 4 ❤️";
+  window.location.href="https://wa.me/"+phone+"?text="+encodeURIComponent(message);
 }
 </script>
 </body>
